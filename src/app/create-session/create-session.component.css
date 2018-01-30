@@ -4,7 +4,7 @@ em {
     padding-left: 10px
 }
 
-.error input {background-color: indianred}
+.error input, .error select, .error textarea  {background-color: indianred}
 .error ::-webkit-input-placeholder {color: #999;}
 .error ::-moz-placeholder {color: #999;}
 .error :-moz-placeholder {color: #999;}

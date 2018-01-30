@@ -1,27 +1,46 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { IEvent } from '../model/event.model';
 
 @Injectable()
 export class EventService {
 
   constructor() { }
 
-  getEvents(){
-    return EVENTS;
+  getEvents(): Subject<IEvent[]> {
+    let subject = new Subject<IEvent[]>();
+
+    setTimeout(()=> {subject.next(EVENTS); subject.complete();},100);
+    //return EVENTS;
+
+    return subject;
   }
 
-  getEvent(id:number){
+  getEvent(id:number) : IEvent{
     return EVENTS.find(event => event.id === id);
   }
 
+  saveEvent(event){
+    event.id = 999;
+    event.session = [];
+    
+    EVENTS.push(event);
+  }
+
+  updateEvent(event){
+    let index = EVENTS.findIndex(x=> x.id == event.id);
+    EVENTS[index] = event;
+  }
+
 }
-const EVENTS = [
+const EVENTS : IEvent[] = [
   {
     id: 1,
     name: 'Angular Learning Session',
-    date: '12/19/2017',
+    date: new Date('12/19/2017'),
     time: '12:00 pm',
     price: 100,
-    imageUrl: 'app/assets/angular.png',
+    imageUrl: './assets/angular.png',
     location: {
       address: '50 Prospect Street',
       city: 'Hartford',
@@ -81,10 +100,10 @@ const EVENTS = [
   {
     id: 2,
     name: 'Angular Training- St Paul',
-    date: '4/15/2037',
+    date: new Date('4/15/2037'),
     time: '9:00 am',
     price: 950.00,
-    imageUrl: '/app/assets/angular.png',
+    imageUrl: './assets/angular.png',
     onlineUrl: 'www.learning.travelers.com',
     sessions: [
       {
@@ -137,10 +156,10 @@ const EVENTS = [
   {
     id: 3,
     name: 'NodeJS and Mongo DB',
-    date: '5/4/2037',
+    date: new Date('5/4/2037'),
     time: '9:00 am',
     price: 759.00,
-    imageUrl: '/app/assets/angular.png',
+    imageUrl: './assets/angular.png',
     location: {
       address: 'The Palatial America Hotel',
       city: 'Salt Lake City',
@@ -219,10 +238,10 @@ const EVENTS = [
   {
     id: 4,
     name: 'UN Angular Summit',
-    date: '6/10/2037',
+    date: new Date('6/10/2037'),
     time: '8:00 am',
     price: 800.00,
-    imageUrl: '/app/assets/angular.png',
+    imageUrl: './assets/angular.png',
     location: {
       address: 'The UN Angular Center',
       city: 'New York',
@@ -268,10 +287,10 @@ const EVENTS = [
   {
     id: 5,
     name: 'Angular Training - Hawaii',
-    date: '2/10/2037',
+    date: new Date('2/10/2037'),
     time: '9:00 am',
     price: 400.00,
-     imageUrl: '/src/assets/angular.png',
+     imageUrl: './assets/angular.png',
     location: {
       address: 'Waikiki Beach',
       city: 'Hawaii',
