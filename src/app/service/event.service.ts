@@ -39,7 +39,7 @@ const EVENTS : IEvent[] = [
     name: 'Angular Learning Session',
     date: new Date('12/19/2017'),
     time: '12:00 pm',
-    price: 100,
+    price: 99.99,
     imageUrl: './assets/angular.png',
     location: {
       address: '50 Prospect Street',
@@ -72,7 +72,7 @@ const EVENTS : IEvent[] = [
         name: "Components, Templates, Services",
         presenter: "Bipul Kumar",
         duration: 1,
-        level: "Intermediate",
+        level: "Beginner",
         abstract: `Deepdive into Angular Application Component Structure and 
         Hierarchy, Interpolation, Expression, Events, Statements, Services`,
         voters: []
@@ -93,7 +93,7 @@ const EVENTS : IEvent[] = [
         duration: 2,
         level: "Intermediate",
         abstract: `Deepdive into Angular Application Routing and Component Communication`,
-        voters: ['bradgreen', 'igorminar']
+        voters: ['johnpapa', 'bradgreen', 'igorminar', 'martinfowler']
       }
     ]
   },

@@ -6,6 +6,7 @@ import { appRoutes } from './routes';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { 
   EventsListComponent,
   EventThumbnailComponent,
@@ -16,9 +17,14 @@ import {
   EventRouteActivator,
   EventsListResolverService,
   Error404Component,
-  CreateSessionComponent
+  CreateSessionComponent,
+  DurationPipe
 } from './index';
+
+
 import { SessionListComponent } from './session-list/session-list.component';
+import { CollapsibleWellComponent } from './common/collapsible-well.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +36,9 @@ import { SessionListComponent } from './session-list/session-list.component';
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule, 
@@ -51,6 +59,9 @@ import { SessionListComponent } from './session-list/session-list.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
 
 function checkDirtyState(component: CreateEventComponent){
   if(component.isDirty)
