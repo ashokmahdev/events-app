@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { appRoutes } from './routes';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TOASTER_TOKEN ,Toastr}  from './common/toastr.service';
 
 
 import { 
@@ -25,6 +27,8 @@ import {
 import { SessionListComponent } from './session-list/session-list.component';
 import { CollapsibleWellComponent } from './common/collapsible-well.component';
 
+//declare let toastr : any
+declare let toastr : Toastr
 
 @NgModule({
   declarations: [
@@ -41,6 +45,7 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component';
     DurationPipe
   ],
   imports: [
+    HttpModule,
     BrowserModule, 
     RouterModule.forRoot(appRoutes),
     FormsModule,
@@ -49,6 +54,10 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component';
   providers: [
     EventService, 
     EventRouteActivator,
+    { 
+      provide:'TOASTER_TOKEN',
+      useValue : 'toastr'
+    },
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
@@ -59,8 +68,6 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
 
 
 function checkDirtyState(component: CreateEventComponent){

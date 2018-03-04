@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { TOASTER_TOKEN ,Toastr}  from '../../common/toastr.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private authService:AuthService, private router:Router , @Inject(TOASTER_TOKEN) private toastr : Toastr) { }
 
   ngOnInit() {
   }
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   login(formValues){
     //console.log(formValues);
     this.authService.loginUser(formValues.userName, formValues.password);
-
+    this.toastr.success('Profile Saved')
     this.router.navigate(['events']);
   }
 
