@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../service/event.service';
+import { ActivatedRoute } from '@angular/router';
+import { IEvent } from '../model/event.model';
 
 @Component({
   //selector: 'app-events-list',
@@ -7,8 +9,8 @@ import { EventService } from '../service/event.service';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit {
-  events:any[];
-  constructor(private eventservice: EventService) {
+  events:IEvent[];
+  constructor(private eventservice: EventService, private route:ActivatedRoute) {
    }
   //   the private varible is equal to below code
   //   eventservice
@@ -16,6 +18,7 @@ export class EventsListComponent implements OnInit {
   //     this.eventservice = eventservice
   //  }
   ngOnInit() {
-    this.events = this.eventservice.getEvents();
+    //this.eventservice.getEvents().subscribe(events => {this.events = events});
+    this.events = this.route.snapshot.data['events'];
   }
 }
