@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -7,6 +8,8 @@ import { appRoutes } from './routes';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TOASTER_TOKEN ,Toastr}  from './common/toastr.service';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { 
@@ -28,7 +31,7 @@ import { SessionListComponent } from './session-list/session-list.component';
 import { CollapsibleWellComponent } from './common/collapsible-well.component';
 
 //declare let toastr : any
-declare let toastr : Toastr
+//declare let toastr : Toastr
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ declare let toastr : Toastr
   ],
   imports: [
     HttpModule,
-    BrowserModule, 
+    HttpClientModule,
+    [BrowserModule,BrowserAnimationsModule, ToastModule.forRoot()],
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule
@@ -54,10 +58,10 @@ declare let toastr : Toastr
   providers: [
     EventService, 
     EventRouteActivator,
-    { 
-      provide:'TOASTER_TOKEN',
-      useValue : 'toastr'
-    },
+    // { 
+    //   provide:'TOASTER_TOKEN',
+    //   useValue : 'toastr'
+    // },
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
@@ -68,7 +72,6 @@ declare let toastr : Toastr
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
 
 function checkDirtyState(component: CreateEventComponent){
   if(component.isDirty)
