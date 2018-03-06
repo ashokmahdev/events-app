@@ -37,6 +37,9 @@ export class EventService {
     var term = searchTerm.toLocaleLowerCase();
     var results : ISession[] = [];
     
+    //term = term ? term : 'Angular';
+    console.log(term);
+    
     EVENTS.forEach(event => {
       
       //STEP1
@@ -55,6 +58,9 @@ export class EventService {
     })
     
     var emitter = new EventEmitter(true);
+    
+    console.log('service results')
+    console.log(results)
     
     setTimeout(() => {
         emitter.emit(results);
