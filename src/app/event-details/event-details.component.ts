@@ -18,8 +18,14 @@ export class EventDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.event = this.eventservice.getEvent
-    (+this.route.snapshot.params['id']); // + is used to type convert to integer
+    
+    this.route.params.forEach((params: Params ) => {
+      this.event = this.eventService.getEvent(+params['id'])
+      this.addMode = false;
+    })
+    
+    // this.event = this.eventservice.getEvent
+    // (+this.route.snapshot.params['id']); // + is used to type convert to integer
   }
 
   addSession(){
