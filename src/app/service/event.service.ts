@@ -48,7 +48,7 @@ export class EventService {
        
       //STEP2
       matchingSessions = matchingSessions.map( (session:any) => {
-          session.evenId = event.id;   
+          session.eventId = event.id;   
           return session;       
           }
         )
