@@ -9,6 +9,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JQ_TOKEN,TOASTER_TOKEN,Toastr,SimpleModalComponent,ModalTriggerDirective} from './common/index';
 
+
 declare let toastr : Toastr;
 declare let jQuery : Object;
 
@@ -23,7 +24,9 @@ import {
   EventsListResolverService,
   Error404Component,
   CreateSessionComponent,
-  DurationPipe
+  DurationPipe,
+  UpvoteComponent,
+  VoterService
 } from './index';
 
 import { SessionListComponent } from './session-list/session-list.component';
@@ -43,7 +46,8 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component';
     CollapsibleWellComponent,
     SimpleModalComponent,
     DurationPipe,
-    ModalTriggerDirective
+    ModalTriggerDirective,
+    UpvoteComponent
   ],
   imports: [
     [BrowserModule, BrowserAnimationsModule, ToastModule.forRoot()], 
@@ -53,6 +57,7 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component';
   ],
   providers: [
     EventService, 
+    VoterService,
     EventRouteActivator,
     {
       provide: JQ_TOKEN,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../service/event.service';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute,Params } from '@angular/router'
 import { IEvent } from '../model/event.model';
 import { ISession } from '../model/session.model';
 
@@ -20,13 +20,14 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit() {
     
     this.route.params.forEach((params: Params ) => {
-      this.event = this.eventService.getEvent(+params['id'])
+      this.event = this.eventservice.getEvent(+params['id'])
       this.addMode = false;
     })
     
     // this.event = this.eventservice.getEvent
     // (+this.route.snapshot.params['id']); // + is used to type convert to integer
   }
+
 
   addSession(){
     this.addMode = true;
