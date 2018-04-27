@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JQ_TOKEN,TOASTER_TOKEN,Toastr,SimpleModalComponent,ModalTriggerDirective} from './common/index';
-
+import { HttpClientModule } from  '@angular/common/http';
 
 declare let toastr : Toastr;
 declare let jQuery : Object;
@@ -53,7 +53,8 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component';
     [BrowserModule, BrowserAnimationsModule, ToastModule.forRoot()], 
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     EventService, 
