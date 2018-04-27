@@ -2,40 +2,76 @@ import { Injectable,EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { IEvent } from '../model/event.model';
 import { ISession } from '../model/session.model';
+//import {Http, Response} from '@angular/http';
+//import {HttpModule} from '@angular/http';
+import {HttpClient,HttpHeaders } from '@angular/common/http';
+import {Observable} from 'rxjs/observable';
+//import {Observable} from 'rxjs/Rx';
+//import { timeInterval } from 'rxjs/operators';
 
 @Injectable()
 export class EventService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getEvents(): Subject<IEvent[]> {
-    let subject = new Subject<IEvent[]>();
-
-    setTimeout(()=> {subject.next(EVENTS); subject.complete();},100);
-    //return EVENTS;
-
-    return subject;
+  getEvents(): Observable<IEvent[]> {
+    var url : string = 'http://localhost:3002/api/events';
+    var result :  Observable<IEvent[]>  = this.http.get<IEvent[]>(url);
+    return result;
   }
 
-  getEvent(id:number) : IEvent{
+  getEventById(id:number): Observable<IEvent[]> {
+    var url : string = 'http://localhost:3002/api/events?id='+id;
+    var result :  Observable<IEvent[]>  = this.http.get<IEvent[]>(url);
+    return result;
+  }
+
+  getEvent(id:number) : IEvent{   
     return EVENTS.find(event => event.id === id);
   }
 
-  saveEvent(event){
+  saveEventNew(event){
     event.id = 999;
-    event.session = [];
-    
-    EVENTS.push(event);
+    event.session = [];    
+   
+    console.log("POST CALLED")
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let body = JSON.stringify(event);
+   return this.http.post('http://localhost:3002/api/events', body, httpOptions);
+   
   }
+
+  // saveEvent(event){
+  //   event.id = 999;
+  //   event.session = [];    
+  //   EVENTS.push(event);
+  // }
+
 
   updateEvent(event){
     let index = EVENTS.findIndex(x=> x.id == event.id);
     EVENTS[index] = event;
   }
   
+  searchSessionsNew(searchTerm : string){
+    var term = searchTerm.toLocaleLowerCase();
+    var results : ISession[] = [];
+    var events : IEvent[] = [];
+
+    var url : string = 'http://localhost:3002/api/sessions?searchTerm='+searchTerm;
+
+    var result :  Observable<IEvent[]>  = this.http.get<IEvent[]>(url);
+    return result;
+  }
+
   searchSessions(searchTerm : string){
     var term = searchTerm.toLocaleLowerCase();
     var results : ISession[] = [];
+    var events : IEvent[] = [];
     
     //term = term ? term : 'Angular';
     console.log(term);
@@ -68,6 +104,12 @@ export class EventService {
     
     return emitter; 
   }
+
+  getEventsCommon(url): Observable<IEvent[]> {
+    var result :  Observable<IEvent[]>  = this.http.get<IEvent[]>(url);
+    return result;
+  }
+
 
 }
 const EVENTS : IEvent[] = [

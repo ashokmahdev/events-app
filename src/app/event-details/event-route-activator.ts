@@ -8,6 +8,7 @@ export class EventRouteActivator implements CanActivate {
     constructor(private eventService:EventService, private router:Router) { }
 
     canActivate(route: ActivatedRouteSnapshot) {
+        console.log("Ashoak2")
         const eventExists = !!this.eventService.getEvent(+route.params['id']);
 
         if(!eventExists){

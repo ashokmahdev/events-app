@@ -24,13 +24,43 @@ export class EventNavComponent implements OnInit {
 //   $('#id').modal()
 // }
 
-  searchSessions(searchTerm){
-       this.eventService.searchSessions(searchTerm).subscribe(
-      sesssions => {
-        this.foundSessions =sesssions;
-        console.log(searchTerm);
-        console.log(this.foundSessions);
-      }
-    );
-  }
+  // searchSessions(searchTerm){
+  //      this.eventService.searchSessions(searchTerm).subscribe(
+  //     sesssions => {
+  //       this.foundSessions =sesssions;
+  //       console.log(searchTerm);
+  //       console.log(this.foundSessions);
+  //     }
+  //   );
+  // }
+  
+  searchSessionsNew(searchTerm){
+    var results : ISession[] = [];
+
+    this.eventService.searchSessionsNew(searchTerm).subscribe(
+   events => {
+
+    events.forEach(event => {
+      
+      //STEP1
+      var matchingSessions = event.sessions.filter(
+        session => session.name.toLocaleLowerCase().indexOf(searchTerm) > -1);
+       
+      //STEP2
+      matchingSessions = matchingSessions.map( (session:any) => {
+          session.eventId = event.id;   
+          return session;       
+          }
+        )
+        
+      //STEP3 
+      this.foundSessions = results.concat(matchingSessions);  
+    })
+
+    
+     console.log(searchTerm);
+     console.log(this.foundSessions);
+   }
+ );
+}
 }

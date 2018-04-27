@@ -48,7 +48,16 @@ export class CreateEventComponent implements OnInit {
 
   saveEvent(formValues){
     // console.log(formValues);
-    this.eventService.saveEvent(formValues);
+    this.eventService.saveEventNew(formValues).subscribe(
+      data => {
+        console.log("success saving event!");
+        return true;
+        },
+      error => {
+        console.log("Error saving event!");
+        return false;
+      }
+    );
     this.isDirty = false;
     //console.log( this.toastr)
     this.toastr.success('You are awesome!', 'Success!');
